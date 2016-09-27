@@ -240,7 +240,10 @@ def main():
     # the stuff below, as we don't need to call dmenu etc, so we just call it
     # here and exit if the appropriate flag was given.
     if args.empty:
-        exit(*goto_workspace(next_empty()))
+        target_ws = next_empty()
+        if args.move:
+            i3.command("move container to workspace {}".format(target_ws))
+        exit(*goto_workspace(target_ws))
 
     # likewise for degapping...
     if args.degap:
